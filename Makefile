@@ -1,26 +1,25 @@
-NAME = philo
-CC = gcc
-CFLAGS = -Wall -Werror -Wextra
-INCLUDE = -I include/
+NAME    = philo
 
-OBJ_DIR = obj
+CC      = cc
+CFLAGS  = -Wall -Werror -Wextra
+INCLUDE = -Iinclude/
 
-HEADER := include/philo.h
+OBJ_DIR     = obj
+HEADER      = include/philo.h
 
-SRC_FILES = \
-			main.c\
+SRC_FILES   = \
+            main.c
 
-SRC_FILES := $(addprefix src/, $(SRC_FILES))
-
-OBJ_FILES = $(SRC_FILES:src/%.c=$(OBJ_DIR)/%.o)
+SRC_FILES   := $(addprefix src/, $(SRC_FILES))
+OBJ_FILES   = $(SRC_FILES:src/%.c=$(OBJ_DIR)/%.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJ_FILES) $(HEADER)
-	ar -rcs $(NAME) $(OBJ_FILES)
+	$(CC) $(CFLAGS) $(INCLUDE) $(OBJ_FILES) -o $(NAME)
 
-$(OBJ_DIR)/%.o: src/%.c | $(OBJ_DIR)
-	@mkdir -p $(dir $@)  # Crear el subdirectorio si no existe
+$(OBJ_DIR)/%.o: src/%.c $(HEADER) | $(OBJ_DIR)
+	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
 $(OBJ_DIR):

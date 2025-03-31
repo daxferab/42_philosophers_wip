@@ -6,7 +6,7 @@
 /*   By: daxferna <daxferna@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 21:04:01 by daxferna          #+#    #+#             */
-/*   Updated: 2025/03/28 21:33:57 by daxferna         ###   ########.fr       */
+/*   Updated: 2025/03/31 17:52:58 by daxferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,11 @@ int	main(int argc, char *argv[])
 	{
 		printf("Wrong number of arguments\n");
 		return(0);
+	}
+	printf("Arguments are:\n");
+	for (int i = 0; i < argc; i++)
+	{
+		printf("argv[%d]: %s\n", i, argv[i]);
 	}
 	(void)argv;
 	return (0);
