@@ -1,38 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: daxferna <daxferna@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 21:04:01 by daxferna          #+#    #+#             */
-/*   Updated: 2025/03/31 17:52:58 by daxferna         ###   ########.fr       */
+/*   Updated: 2025/04/28 03:49:43 by daxferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-// argv[1] -> Nº filosofos / tenedores
-// argv[2] -> Tiempo que tarda en morir de hambre 
-//				despues de comer/empezar el programa
-// argv[3] -> Tiempo que come un filosofo
-// argv[4] -> Tiempo que duerme un filosofo
-// argv[5] -> Si todos comen este numero de veces,
-//				se acaba el programa (Opcional). Si
-//				no se indica, acaba cuando uno muere
-
 int	main(int argc, char *argv[])
 {
+	t_param	*parameters;
+
 	if (argc < 5 || argc > 6)
 	{
-		printf("Wrong number of arguments\n");
+		print_error("Wrong number of arguments\n");
 		return(0);
 	}
-	printf("Arguments are:\n");
-	for (int i = 0; i < argc; i++)
-	{
-		printf("argv[%d]: %s\n", i, argv[i]);
-	}
-	(void)argv;
+	parameters = malloc(sizeof(t_param));
+	if (!init_args(argv, parameters))
+		return (free(parameters), 1);
+	free(parameters);
 	return (0);
 }
