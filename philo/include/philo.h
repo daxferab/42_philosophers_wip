@@ -6,7 +6,7 @@
 /*   By: daxferna <daxferna@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 21:17:49 by daxferna          #+#    #+#             */
-/*   Updated: 2025/04/28 03:51:53 by daxferna         ###   ########.fr       */
+/*   Updated: 2025/04/28 04:09:27 by daxferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <unistd.h>
 # include <stdbool.h>
 # include <stdlib.h>
+#include <sys/time.h>
 
 // STRUCTS
 
@@ -30,10 +31,11 @@ typedef struct s_param
 
 // OUTPUT
 
+void	print_action(int philo, char *action);
 void	print_error(char *errmsg);
 
 // PARSE
 
-bool	init_args(char	**args, t_param *param);
+bool	init_args(char **args, t_param *param);
 
 #endif

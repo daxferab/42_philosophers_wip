@@ -1,28 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.c                                            :+:      :+:    :+:   */
+/*   action.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: daxferna <daxferna@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/28 21:04:01 by daxferna          #+#    #+#             */
-/*   Updated: 2025/04/28 04:07:06 by daxferna         ###   ########.fr       */
+/*   Created: 2025/04/28 04:00:29 by daxferna          #+#    #+#             */
+/*   Updated: 2025/04/28 04:10:34 by daxferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	main(int argc, char *argv[])
+void	print_action(int philo, char *action)
 {
-	t_param	*parameters;
+	int	time;
 
-	if (argc < 5 || argc > 6)
-		return(print_error("Wrong number of arguments\n"), 0);
-	parameters = malloc(sizeof(t_param));
-	if (!parameters)
-		return (1);
-	if (!init_args(argv, parameters))
-		return (free(parameters), 1);
-	free(parameters);
-	return (0);
+	time = 0; //TODO: gettimeofday (ms)
+	printf("%d %d is %s\n", time, philo, action);
 }
