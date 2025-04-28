@@ -6,7 +6,7 @@
 /*   By: daxferna <daxferna@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 21:04:01 by daxferna          #+#    #+#             */
-/*   Updated: 2025/04/28 03:49:43 by daxferna         ###   ########.fr       */
+/*   Updated: 2025/04/28 03:50:32 by daxferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,7 @@ int	main(int argc, char *argv[])
 	t_param	*parameters;
 
 	if (argc < 5 || argc > 6)
-	{
-		print_error("Wrong number of arguments\n");
-		return(0);
-	}
+		return(print_error("Wrong number of arguments\n"), 0);
 	parameters = malloc(sizeof(t_param));
 	if (!init_args(argv, parameters))
 		return (free(parameters), 1);

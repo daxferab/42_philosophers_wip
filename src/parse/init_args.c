@@ -6,7 +6,7 @@
 /*   By: daxferna <daxferna@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 01:34:28 by daxferna          #+#    #+#             */
-/*   Updated: 2025/04/28 03:48:47 by daxferna         ###   ########.fr       */
+/*   Updated: 2025/04/28 03:50:48 by daxferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ bool	init_args(char	**args, t_param *param)
 	if (param->philosophers < 1 || param->time_to_die < 1 ||\
 		param->time_to_eat < 1 || param->time_to_sleep < 1 ||\
 		(args[5] && param->eating_times < 1))
-		return (print_error("All arguments must be positive integers\n"), false); //TODO: print error in STDERR
+		return (print_error("All arguments must be positive integers\n"), false);
 	return (true);
 }
 
