@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   action.c                                           :+:      :+:    :+:   */
+/*   print_action.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: daxferna <daxferna@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 04:00:29 by daxferna          #+#    #+#             */
-/*   Updated: 2025/04/28 04:10:34 by daxferna         ###   ########.fr       */
+/*   Updated: 2025/04/28 04:12:45 by daxferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,4 +18,5 @@ void	print_action(int philo, char *action)
 
 	time = 0; //TODO: gettimeofday (ms)
 	printf("%d %d is %s\n", time, philo, action);
+	//FIXME: if action=died, no "is" in printf
 }
