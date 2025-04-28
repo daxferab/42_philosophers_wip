@@ -9,7 +9,7 @@ HEADER      = include/philo.h
 
 SRC_FILES   = 	philo.c\
 				$(addprefix output/,\
-					action.c\
+					print_action.c\
 					print_error.c\
 				)\
 				$(addprefix parse/,\
