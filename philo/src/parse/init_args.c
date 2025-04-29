@@ -6,7 +6,7 @@
 /*   By: daxferna <daxferna@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 01:34:28 by daxferna          #+#    #+#             */
-/*   Updated: 2025/04/29 13:00:40 by daxferna         ###   ########.fr       */
+/*   Updated: 2025/04/29 15:49:23 by daxferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ bool	init_args(char	**args, t_param *param)
 
 static int	ft_atoi(char *n)
 {
-	int	res;
+	long	res;
 
 	res = 0;
 	while (ft_isspace(*n))
@@ -44,6 +44,8 @@ static int	ft_atoi(char *n)
 			return (-1);
 		res = res * 10 + (*n++ - '0');
 	}
+	if (res > INT_MAX)
+		return (-1);
 	return (res);
 }
 
