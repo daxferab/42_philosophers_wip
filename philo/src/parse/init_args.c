@@ -6,7 +6,7 @@
 /*   By: daxferna <daxferna@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 01:34:28 by daxferna          #+#    #+#             */
-/*   Updated: 2025/04/28 03:50:48 by daxferna         ###   ########.fr       */
+/*   Updated: 2025/04/29 13:00:40 by daxferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ bool	init_args(char	**args, t_param *param)
 	param->time_to_sleep = ft_atoi(args[4]);
 	if (args[5])
 		param->eating_times = ft_atoi(args[5]);
-	if (param->philosophers < 1 || param->time_to_die < 1 ||\
-		param->time_to_eat < 1 || param->time_to_sleep < 1 ||\
-		(args[5] && param->eating_times < 1))
-		return (print_error("All arguments must be positive integers\n"), false);
+	if (param->philosophers < 1 || param->time_to_die < 1 \
+|| param->time_to_eat < 1 || param->time_to_sleep < 1 \
+|| (args[5] && param->eating_times < 1))
+		return (print_error("All arguments must be a positive int\n"), false);
 	return (true);
 }
 
@@ -56,8 +56,8 @@ static bool	ft_isdigit(int c)
 
 static bool	ft_isspace(int c)
 {
-	if (c == ' ' || c == '\t' || c == '\n'\
-		|| c == '\v' || c == '\f' || c == '\r')
+	if (c == ' ' || c == '\t' || c == '\n' \
+|| c == '\v' || c == '\f' || c == '\r')
 		return (true);
 	return (false);
 }
