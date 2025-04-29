@@ -14,6 +14,7 @@ SRC_FILES   = 	\
 				)\
 				$(addprefix parse/,\
 					init_args.c\
+					init_members.c\
 				)\
 				philo.c\
 
