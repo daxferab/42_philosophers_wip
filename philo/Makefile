@@ -7,7 +7,7 @@ INCLUDE = -Iinclude/
 OBJ_DIR     = obj
 HEADER      = include/philo.h
 
-SRC_FILES   = 	philo.c\
+SRC_FILES   = 	\
 				$(addprefix output/,\
 					print_action.c\
 					print_error.c\
@@ -15,6 +15,7 @@ SRC_FILES   = 	philo.c\
 				$(addprefix parse/,\
 					init_args.c\
 				)\
+				philo.c\
 
 SRC_FILES   := $(addprefix src/, $(SRC_FILES))
 OBJ_FILES   = $(SRC_FILES:src/%.c=$(OBJ_DIR)/%.o)
