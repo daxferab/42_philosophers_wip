@@ -6,24 +6,24 @@
 /*   By: daxferna <daxferna@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 16:25:42 by daxferna          #+#    #+#             */
-/*   Updated: 2025/04/29 16:50:56 by daxferna         ###   ########.fr       */
+/*   Updated: 2025/06/18 13:02:09 by daxferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-bool	init_members(t_param *param)
+bool	init_members(t_dinner *dinner)
 {
 	struct timeval	tv;
 
 	gettimeofday(&tv, NULL);
-	param->end = false;
-	param->philos = malloc(param->philos_nbr * sizeof(t_philo));
-	if (param->philos == NULL)
-		return (print_error("Malloc failed"), false);
-	param->forks = malloc(param->philos_nbr * sizeof(t_fork));
-	if (param->philos == NULL)
-		return (print_error("Malloc failed"), free(param->philos), false);
-	param->start_time = tv.tv_sec * 1000 + tv.tv_usec / 1000;
+	dinner->end = false;
+	dinner->philos = malloc(dinner->philos_nbr * sizeof(t_philo));
+	if (!dinner->philos)
+		return (printf("Malloc failed"), false);
+	dinner->forks = malloc(dinner->philos_nbr * sizeof(t_fork));
+	if (!dinner->philos)
+		return (printf("Malloc failed"), free(dinner->philos), false);
+	dinner->start_time = tv.tv_sec * 1000 + tv.tv_usec / 1000;
 	return (true);
 }

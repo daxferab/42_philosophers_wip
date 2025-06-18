@@ -6,7 +6,7 @@
 /*   By: daxferna <daxferna@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 21:17:49 by daxferna          #+#    #+#             */
-/*   Updated: 2025/04/29 16:49:01 by daxferna         ###   ########.fr       */
+/*   Updated: 2025/06/18 13:01:39 by daxferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 typedef struct s_philo t_philo;
 typedef struct s_fork t_fork;
 
-typedef struct s_param
+typedef struct s_dinner
 {
 	int		philos_nbr;
 	int		time_to_die;
@@ -41,9 +41,9 @@ typedef struct s_param
 	int		eating_times;
 	long	start_time;
 	bool	end;
-	t_fork	*forks;
 	t_philo	*philos;
-}	t_param;
+	t_fork	*forks;
+}	t_dinner;
 
 typedef struct s_fork
 {
@@ -60,7 +60,7 @@ typedef struct s_philo
 	t_fork		*right_fork;
 	t_fork		*left_fork;
 	pthread_t	thread_id;
-	t_param		parameters;
+	t_dinner	dinner;
 }	t_philo;
 
 // ENUM
@@ -78,11 +78,10 @@ typedef enum e_mutexcode
 // OUTPUT
 
 void	print_action(int philo, char *action);
-void	print_error(char *errmsg);
 
 // PARSE
 
-bool	init_args(char **args, t_param *param);
-bool	init_members(t_param *param);
+bool	init_args(char **args, t_dinner *dinner);
+bool	init_members(t_dinner *dinner);
 
 #endif

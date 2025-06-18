@@ -6,7 +6,7 @@
 /*   By: daxferna <daxferna@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 01:34:28 by daxferna          #+#    #+#             */
-/*   Updated: 2025/04/30 02:53:29 by daxferna         ###   ########.fr       */
+/*   Updated: 2025/06/18 13:14:25 by daxferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,19 @@ static int	ft_atoi(char *n);
 static bool	ft_isdigit(int c);
 static bool	ft_isspace(int c);
 
-bool	init_args(char	**args, t_param *param)
+bool	init_args(char	**args, t_dinner *dinner)
 {
-	param->philos_nbr = ft_atoi(args[1]);
-	param->time_to_die = ft_atoi(args[2]);
-	param->time_to_eat = ft_atoi(args[3]);
-	param->time_to_sleep = ft_atoi(args[4]);
-	param->eating_times = -1;
+	dinner->philos_nbr = ft_atoi(args[1]);
+	dinner->time_to_die = ft_atoi(args[2]);
+	dinner->time_to_eat = ft_atoi(args[3]);
+	dinner->time_to_sleep = ft_atoi(args[4]);
+	dinner->eating_times = -1;
 	if (args[5])
-		param->eating_times = ft_atoi(args[5]);
-	if (param->philos_nbr < 1 || param->time_to_die < 1 \
-|| param->time_to_eat < 1 || param->time_to_sleep < 1 \
-|| (args[5] && param->eating_times < 1))
-		return (print_error("All arguments must be a positive int\n"), false);
+		dinner->eating_times = ft_atoi(args[5]);
+	if (dinner->philos_nbr < 1 || dinner->time_to_die < 1 \
+|| dinner->time_to_eat < 1 || dinner->time_to_sleep < 1 \
+|| (args[5] && dinner->eating_times < 1))
+		return (printf("All arguments must be a positive int\n"), false);
 	return (true);
 }
 

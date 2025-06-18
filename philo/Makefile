@@ -1,7 +1,7 @@
 NAME    = philo
 
 CC      = cc
-CFLAGS  = -Wall -Werror -Wextra
+CFLAGS  = -Wall -Werror -Wextra -pthread
 INCLUDE = -Iinclude/
 
 OBJ_DIR     = obj
@@ -10,7 +10,6 @@ HEADER      = include/philo.h
 SRC_FILES   = 	\
 				$(addprefix output/,\
 					print_action.c\
-					print_error.c\
 				)\
 				$(addprefix parse/,\
 					init_args.c\
