@@ -6,7 +6,7 @@
 /*   By: daxferna <daxferna@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 01:34:28 by daxferna          #+#    #+#             */
-/*   Updated: 2025/07/02 20:11:27 by daxferna         ###   ########.fr       */
+/*   Updated: 2025/07/04 17:30:42 by daxferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static bool	init_forks(t_dinner *dinner);
 static bool	init_philos(t_dinner *dinner);
 
-bool	init_dinner(char	**args, t_dinner *dinner)
+bool	start_dinner(char	**args, t_dinner *dinner)
 {
 	struct timeval	tv;
 
@@ -33,10 +33,10 @@ bool	init_dinner(char	**args, t_dinner *dinner)
 	dinner->end = false;
 	if (!init_forks(dinner))
 		return (false);
-	if (!init_philos(dinner))
-		return (false);
 	gettimeofday(&tv, NULL);
 	dinner->start_time = tv.tv_sec * 1000 + tv.tv_usec / 1000;
+	if (!init_philos(dinner))
+		return (false);
 	return (true);
 }
 
@@ -71,7 +71,9 @@ static bool	init_philos(t_dinner *dinner)
 		dinner->philos[i].right_fork = &dinner->forks[i + 1];
 		dinner->philos[i].left_fork = &dinner->forks[i];
 		dinner->philos[i].dinner = dinner;
-		if (pthread_create(&dinner->philos[i].thread_id, NULL, routine, NULL))
+		printf("%d\n", dinner->philos[i].id);
+		if (pthread_create(&dinner->philos[i].thread_id, NULL, routine,
+		&(dinner->philos[i])))
 			return (false);
 		i++;
 	}

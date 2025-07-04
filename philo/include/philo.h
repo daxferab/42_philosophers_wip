@@ -6,7 +6,7 @@
 /*   By: daxferna <daxferna@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 21:17:49 by daxferna          #+#    #+#             */
-/*   Updated: 2025/07/02 20:19:35 by daxferna         ###   ########.fr       */
+/*   Updated: 2025/07/04 17:30:47 by daxferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,22 +75,29 @@ typedef enum e_mutexcode
 	DEATACH,
 }	t_mutexcode;
 
-// FREE
+// free_dinner.c
 
 void	free_dinner(t_dinner *dinner);
 
-// OUTPUT
+// init_dinner.c
 
-void	print_action(int philo, char *action);
+bool	start_dinner(char **args, t_dinner *dinner);
 
-// PARSE
+//join_philos.c
 
-bool	init_dinner(char **args, t_dinner *dinner);
+bool	join_philos(t_dinner *dinner);
+
+//utils.c
+
 int		ft_atoi(char *n);
 bool	ft_isdigit(int c);
 bool	ft_isspace(int c);
 
-// ROUTINE
+//print_action.c
+
+void	print_action(int philo, char *action);
+
+//routine.c
 
 void	*routine(void	*args);
 

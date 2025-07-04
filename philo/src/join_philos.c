@@ -1,29 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.c                                            :+:      :+:    :+:   */
+/*   join_philos.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: daxferna <daxferna@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/28 21:04:01 by daxferna          #+#    #+#             */
-/*   Updated: 2025/07/04 17:30:36 by daxferna         ###   ########.fr       */
+/*   Created: 2025/07/04 17:09:36 by daxferna          #+#    #+#             */
+/*   Updated: 2025/07/04 17:10:46 by daxferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	main(int argc, char *argv[])
+bool	join_philos(t_dinner *dinner)
 {
-	t_dinner	*dinner;
+	int		i;
 
-	if (argc < 5 || argc > 6)
-		return (printf("Wrong number of arguments\n"), 0);
-	dinner = malloc(sizeof(t_dinner));
-	if (!dinner)
-		return (1);
-	if (!start_dinner(argv, dinner))
-		return (free(dinner), 1);
-	join_philos(dinner);
-	free_dinner(dinner);
-	return (0);
+	i = 0;
+	while (i < dinner->philos_nbr)
+	{
+		if (pthread_join(dinner->philos[i].thread_id, NULL))
+			return (false);
+		i++;
+	}
+	return (true);
 }
