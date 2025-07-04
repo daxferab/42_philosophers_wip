@@ -6,7 +6,7 @@
 /*   By: daxferna <daxferna@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 21:17:49 by daxferna          #+#    #+#             */
-/*   Updated: 2025/07/04 17:30:47 by daxferna         ###   ########.fr       */
+/*   Updated: 2025/07/04 18:55:17 by daxferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,16 @@ typedef struct s_fork	t_fork;
 
 typedef struct s_dinner
 {
-	int		philos_nbr;
-	int		time_to_die;
-	int		time_to_eat;
-	int		time_to_sleep;
-	int		eating_times;
-	long	start_time;
-	bool	end;
-	t_philo	*philos;
-	t_fork	*forks;
+	int				philos_nbr;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
+	int				eating_times;
+	long			start_time;
+	bool			end;
+	pthread_mutex_t	print;
+	t_philo			*philos;
+	t_fork			*forks;
 }	t_dinner;
 
 typedef struct s_fork
@@ -75,30 +76,27 @@ typedef enum e_mutexcode
 	DEATACH,
 }	t_mutexcode;
 
-// free_dinner.c
-
-void	free_dinner(t_dinner *dinner);
-
-// init_dinner.c
-
-bool	start_dinner(char **args, t_dinner *dinner);
-
-//join_philos.c
+// join_philos.c
 
 bool	join_philos(t_dinner *dinner);
 
-//utils.c
+// ROUTINES
 
+void	routine_eat(t_philo *philo);
+void	routine_sleep(t_philo *philo);
+void	routine_think(t_philo *philo);
+void	*routine(void	*args);
+
+// start_dinner.c
+
+bool	start_dinner(char **args, t_dinner *dinner);
+
+// UTILS
+
+void	free_dinner(t_dinner *dinner);
+void	print_action(t_philo *philo, long start, char *action);
 int		ft_atoi(char *n);
 bool	ft_isdigit(int c);
 bool	ft_isspace(int c);
-
-//print_action.c
-
-void	print_action(int philo, char *action);
-
-//routine.c
-
-void	*routine(void	*args);
 
 #endif

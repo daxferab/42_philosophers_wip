@@ -1,27 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   routine.c                                          :+:      :+:    :+:   */
+/*   routine_eat.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: daxferna <daxferna@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/02 19:50:57 by daxferna          #+#    #+#             */
-/*   Updated: 2025/07/04 17:55:12 by daxferna         ###   ########.fr       */
+/*   Created: 2025/07/04 17:41:46 by daxferna          #+#    #+#             */
+/*   Updated: 2025/07/04 18:55:39 by daxferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	*routine(void	*args)
+void	routine_eat(t_philo *philo)
 {
-	t_philo	*philo;
-
-	philo = (t_philo *)args;
-	while (!philo->full)
-	{
-		routine_eat(philo);
-		routine_sleep(philo);
-		routine_think(philo);
-	}
-	return(args);
+	print_action(philo, philo->dinner->start_time, EAT);
+	usleep(philo->dinner->time_to_eat * 1000);
 }

@@ -9,12 +9,15 @@ HEADER      = include/philo.h
 
 SRC_FILES   = 	\
 				free_dinner.c\
-				start_dinner.c\
 				join_philos.c\
-				utils.c\
 				philo.c\
 				print_action.c\
+				routine_eat.c\
+				routine_sleep.c\
+				routine_think.c\
 				routine.c\
+				start_dinner.c\
+				utils.c\
 
 SRC_FILES   := $(addprefix src/, $(SRC_FILES))
 OBJ_FILES   = $(SRC_FILES:src/%.c=$(OBJ_DIR)/%.o)

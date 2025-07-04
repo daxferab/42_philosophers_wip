@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_dinner.c                                      :+:      :+:    :+:   */
+/*   start_dinner.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: daxferna <daxferna@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 01:34:28 by daxferna          #+#    #+#             */
-/*   Updated: 2025/07/04 17:30:42 by daxferna         ###   ########.fr       */
+/*   Updated: 2025/07/04 18:50:03 by daxferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ bool	start_dinner(char	**args, t_dinner *dinner)
 		|| (args[5] && dinner->eating_times < 1))
 		return (printf("All arguments must be a positive int\n"), false);
 	dinner->end = false;
+	if (pthread_mutex_init(&dinner->print, NULL))
+		return (false);
 	if (!init_forks(dinner))
 		return (false);
 	gettimeofday(&tv, NULL);
@@ -50,7 +52,7 @@ static bool init_forks(t_dinner *dinner)
 	{
 		dinner->forks[i].id = i;
 		if (pthread_mutex_init(&dinner->forks[i].fork_id, NULL))
-			return(false);
+			return (false);
 		i++;
 	}
 	return (true);
@@ -71,7 +73,6 @@ static bool	init_philos(t_dinner *dinner)
 		dinner->philos[i].right_fork = &dinner->forks[i + 1];
 		dinner->philos[i].left_fork = &dinner->forks[i];
 		dinner->philos[i].dinner = dinner;
-		printf("%d\n", dinner->philos[i].id);
 		if (pthread_create(&dinner->philos[i].thread_id, NULL, routine,
 		&(dinner->philos[i])))
 			return (false);

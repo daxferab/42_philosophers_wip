@@ -6,7 +6,7 @@
 /*   By: daxferna <daxferna@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 20:13:10 by daxferna          #+#    #+#             */
-/*   Updated: 2025/07/02 20:21:12 by daxferna         ###   ########.fr       */
+/*   Updated: 2025/07/04 18:52:48 by daxferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,15 @@
 
 void	free_dinner(t_dinner *dinner)
 {
+	int		i;
+
+	i = 0;
+	while (i < dinner->philos_nbr)
+	{
+		pthread_mutex_destroy(&dinner->forks[i].fork_id);
+		i++;
+	}
+	pthread_mutex_destroy(&dinner->print);
 	free(dinner->philos);
 	free(dinner->forks);
 	free(dinner);
