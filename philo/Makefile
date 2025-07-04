@@ -1,19 +1,25 @@
 NAME    = philo
 
 CC      = cc
-CFLAGS  = -Wall -Werror -Wextra -pthread
+CFLAGS  = -Wall -Werror -Wextra -pthread -g3 -fsanitize=address
 INCLUDE = -Iinclude/
 
 OBJ_DIR     = obj
 HEADER      = include/philo.h
 
 SRC_FILES   = 	\
+				$(addprefix free/,\
+					free_dinner.c\
+				)\
 				$(addprefix output/,\
 					print_action.c\
 				)\
 				$(addprefix parse/,\
-					init_args.c\
-					init_members.c\
+					init_dinner.c\
+					parse_utils.c\
+				)\
+				$(addprefix routine/,\
+					routine.c\
 				)\
 				philo.c\
 

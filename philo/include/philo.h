@@ -6,7 +6,7 @@
 /*   By: daxferna <daxferna@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 21:17:49 by daxferna          #+#    #+#             */
-/*   Updated: 2025/06/18 13:01:39 by daxferna         ###   ########.fr       */
+/*   Updated: 2025/07/02 20:19:35 by daxferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,16 @@
 # include <pthread.h>
 # include <limits.h>
 
-# define FORK "has taken a fork"
-# define EAT "is eating"
-# define SLEEP "is sleeping"
-# define THINK "is thinking"
-# define DIE "died"
+# define FORK	"has taken a fork"
+# define EAT	"is eating"
+# define SLEEP	"is sleeping"
+# define THINK	"is thinking"
+# define DIE	"died"
 
 // STRUCTS
 
-typedef struct s_philo t_philo;
-typedef struct s_fork t_fork;
+typedef struct s_philo	t_philo;
+typedef struct s_fork	t_fork;
 
 typedef struct s_dinner
 {
@@ -48,7 +48,7 @@ typedef struct s_dinner
 typedef struct s_fork
 {
 	int				id;
-	pthread_mutex_t	fork;
+	pthread_mutex_t	fork_id;
 }	t_fork;
 
 typedef struct s_philo
@@ -60,7 +60,7 @@ typedef struct s_philo
 	t_fork		*right_fork;
 	t_fork		*left_fork;
 	pthread_t	thread_id;
-	t_dinner	dinner;
+	t_dinner	*dinner;
 }	t_philo;
 
 // ENUM
@@ -73,7 +73,11 @@ typedef enum e_mutexcode
 	CREATE,
 	JOIN,
 	DEATACH,
-} t_mutexcode;
+}	t_mutexcode;
+
+// FREE
+
+void	free_dinner(t_dinner *dinner);
 
 // OUTPUT
 
@@ -81,7 +85,13 @@ void	print_action(int philo, char *action);
 
 // PARSE
 
-bool	init_args(char **args, t_dinner *dinner);
-bool	init_members(t_dinner *dinner);
+bool	init_dinner(char **args, t_dinner *dinner);
+int		ft_atoi(char *n);
+bool	ft_isdigit(int c);
+bool	ft_isspace(int c);
+
+// ROUTINE
+
+void	*routine(void	*args);
 
 #endif
