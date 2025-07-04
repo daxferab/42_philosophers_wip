@@ -6,7 +6,7 @@
 /*   By: daxferna <daxferna@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 19:50:57 by daxferna          #+#    #+#             */
-/*   Updated: 2025/07/04 17:55:12 by daxferna         ###   ########.fr       */
+/*   Updated: 2025/07/04 20:16:01 by daxferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ void	*routine(void	*args)
 	philo = (t_philo *)args;
 	while (!philo->full)
 	{
+		routine_think(philo);
 		routine_eat(philo);
 		routine_sleep(philo);
-		routine_think(philo);
 	}
 	return(args);
 }

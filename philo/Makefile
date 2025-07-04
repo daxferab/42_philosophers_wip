@@ -1,7 +1,7 @@
 NAME    = philo
 
 CC      = cc
-CFLAGS  = -Wall -Werror -Wextra -pthread -g3 #-fsanitize=address
+CFLAGS  = -Wall -Werror -Wextra -pthread -g3 -fsanitize=thread
 INCLUDE = -Iinclude/
 
 OBJ_DIR     = obj
@@ -9,6 +9,7 @@ HEADER      = include/philo.h
 
 SRC_FILES   = 	\
 				free_dinner.c\
+				get_time.c\
 				join_philos.c\
 				philo.c\
 				print_action.c\

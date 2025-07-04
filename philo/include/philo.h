@@ -6,7 +6,7 @@
 /*   By: daxferna <daxferna@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 21:17:49 by daxferna          #+#    #+#             */
-/*   Updated: 2025/07/04 18:55:17 by daxferna         ###   ########.fr       */
+/*   Updated: 2025/07/04 19:38:58 by daxferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct s_dinner
 typedef struct s_fork
 {
 	int				id;
+	bool			in_use;
 	pthread_mutex_t	fork_id;
 }	t_fork;
 
@@ -98,5 +99,6 @@ void	print_action(t_philo *philo, long start, char *action);
 int		ft_atoi(char *n);
 bool	ft_isdigit(int c);
 bool	ft_isspace(int c);
+long	get_time();
 
 #endif
