@@ -6,7 +6,7 @@
 /*   By: daxferna <daxferna@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 21:17:49 by daxferna          #+#    #+#             */
-/*   Updated: 2025/07/04 19:38:58 by daxferna         ###   ########.fr       */
+/*   Updated: 2025/07/05 02:07:25 by daxferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ typedef struct s_dinner
 	int				time_to_sleep;
 	int				eating_times;
 	long			start_time;
-	bool			end;
+	bool			someone_died;
+	pthread_t		watcher;
 	pthread_mutex_t	print;
 	t_philo			*philos;
 	t_fork			*forks;
@@ -87,6 +88,7 @@ void	routine_eat(t_philo *philo);
 void	routine_sleep(t_philo *philo);
 void	routine_think(t_philo *philo);
 void	*routine(void	*args);
+void	*deadly_routine(void *args);
 
 // start_dinner.c
 
