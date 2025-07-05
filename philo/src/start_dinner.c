@@ -6,7 +6,7 @@
 /*   By: daxferna <daxferna@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 01:34:28 by daxferna          #+#    #+#             */
-/*   Updated: 2025/07/05 02:11:31 by daxferna         ###   ########.fr       */
+/*   Updated: 2025/07/05 14:05:31 by daxferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ bool	start_dinner(char	**args, t_dinner *dinner)
 		|| (args[5] && dinner->eating_times < 1))
 		return (printf("All arguments must be a positive int\n"), false);
 	dinner->someone_died = false;
-	if (pthread_create(&dinner->watcher, NULL, deadly_routine, &dinner))
+	if (pthread_create(&dinner->death, NULL, death_routine, &dinner))
 		return (false);
 	if (pthread_mutex_init(&dinner->print, NULL))
 		return (false);
@@ -73,7 +73,7 @@ static bool	init_philos(t_dinner *dinner)
 		dinner->philos[i].last_meal = 0;
 		dinner->philos[i].dinner = dinner;
 		assign_forks(dinner,  i);
-		if (pthread_create(&dinner->philos[i].thread_id, NULL, routine,
+		if (pthread_create(&dinner->philos[i].thread_id, NULL, philo_routine,
 		&(dinner->philos[i])))
 			return (false);
 		i++;
