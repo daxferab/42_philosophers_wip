@@ -6,7 +6,7 @@
 /*   By: daxferna <daxferna@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 21:17:49 by daxferna          #+#    #+#             */
-/*   Updated: 2025/07/05 14:05:19 by daxferna         ###   ########.fr       */
+/*   Updated: 2025/07/11 13:41:21 by daxferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,18 +66,6 @@ typedef struct s_philo
 	t_dinner	*dinner;
 }	t_philo;
 
-// ENUM
-typedef enum e_mutexcode
-{
-	LOCK,
-	UNLOCK,
-	INIT,
-	DESTROY,
-	CREATE,
-	JOIN,
-	DEATACH,
-}	t_mutexcode;
-
 // join_philos.c
 
 bool	join_philos(t_dinner *dinner);
@@ -97,10 +85,10 @@ bool	start_dinner(char **args, t_dinner *dinner);
 // UTILS
 
 void	free_dinner(t_dinner *dinner);
-void	print_action(t_philo *philo, long start, char *action);
+void	print_action(t_philo *philo, char *action);
 int		ft_atoi(char *n);
 bool	ft_isdigit(int c);
 bool	ft_isspace(int c);
-long	get_time();
+long	time_since_start(t_dinner *dinner);
 
 #endif

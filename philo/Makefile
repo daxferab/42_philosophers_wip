@@ -16,7 +16,7 @@ SRC_FILES   = 	\
 				routine_eat.c\
 				routine_sleep.c\
 				routine_think.c\
-				routine.c\
+				routines.c\
 				start_dinner.c\
 				utils.c\
 

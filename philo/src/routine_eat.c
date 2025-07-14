@@ -6,7 +6,7 @@
 /*   By: daxferna <daxferna@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 17:41:46 by daxferna          #+#    #+#             */
-/*   Updated: 2025/07/05 01:50:03 by daxferna         ###   ########.fr       */
+/*   Updated: 2025/07/11 19:49:34 by daxferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,12 @@ void	routine_eat(t_philo *philo)
 {
 	if (try_eating(philo))
 		philo->dinner->someone_died = true;
-	print_action(philo, philo->dinner->start_time, EAT);
+	print_action(philo, EAT);
 	philo->meals++;
-	if (philo->meals >= philo->dinner->eating_times && philo->dinner->eating_times != -1)
+	if (philo->meals >= philo->dinner->eating_times
+		&& philo->dinner->eating_times != -1)
 		philo->full = true;
-	philo->last_meal = get_time() - philo->dinner->start_time;
+	philo->last_meal = time_since_start(philo->dinner);
 	usleep(philo->dinner->time_to_eat * 1000);
 	free_forks(philo);
 }
@@ -43,8 +44,8 @@ static bool	try_eating(t_philo *philo)
 		{
 			philo->left_fork->in_use = true;
 			philo->right_fork->in_use = true;
-			print_action(philo, philo->dinner->start_time, FORK);
-			print_action(philo, philo->dinner->start_time, FORK);
+			print_action(philo, FORK);
+			print_action(philo, FORK);
 			eating = true;
 		}
 		pthread_mutex_unlock(&philo->left_fork->fork_id);
