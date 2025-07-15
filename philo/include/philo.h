@@ -6,7 +6,7 @@
 /*   By: daxferna <daxferna@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 21:17:49 by daxferna          #+#    #+#             */
-/*   Updated: 2025/07/11 13:41:21 by daxferna         ###   ########.fr       */
+/*   Updated: 2025/07/15 14:49:30 by daxferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,8 @@ void	*death_routine(void *args);
 
 // start_dinner.c
 
-bool	start_dinner(char **args, t_dinner *dinner);
+bool	init_params(char **args, t_dinner *dinner);
+bool	start_dinner(t_dinner *dinner);
 
 // UTILS
 

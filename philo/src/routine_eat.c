@@ -6,7 +6,7 @@
 /*   By: daxferna <daxferna@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 17:41:46 by daxferna          #+#    #+#             */
-/*   Updated: 2025/07/11 19:49:34 by daxferna         ###   ########.fr       */
+/*   Updated: 2025/07/15 14:26:23 by daxferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,13 @@ static bool	try_eating(t_philo *philo);
 
 void	routine_eat(t_philo *philo)
 {
-	if (try_eating(philo))
-		philo->dinner->someone_died = true;
+	if (!try_eating(philo))
+	{
+		usleep(philo->dinner->time_to_die * 1000);
+		print_action(&philo[0], DIE);
+		free_dinner(philo->dinner);
+		exit (0);
+	}
 	print_action(philo, EAT);
 	philo->meals++;
 	if (philo->meals >= philo->dinner->eating_times

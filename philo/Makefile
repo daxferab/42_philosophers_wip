@@ -10,6 +10,7 @@ HEADER      = include/philo.h
 SRC_FILES   = 	\
 				free_dinner.c\
 				get_time.c\
+				init_params.c\
 				join_philos.c\
 				philo.c\
 				print_action.c\
