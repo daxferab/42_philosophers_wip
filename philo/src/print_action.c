@@ -6,7 +6,7 @@
 /*   By: daxferna <daxferna@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 04:00:29 by daxferna          #+#    #+#             */
-/*   Updated: 2025/07/18 23:41:47 by daxferna         ###   ########.fr       */
+/*   Updated: 2025/07/20 01:53:53 by daxferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,17 @@
 
 void	print_action(t_philo *philo, char *action)
 {
-	long			time;
+    long			time;
 
-	pthread_mutex_lock(&philo->dinner->print);
-	time = time_since_start(philo->dinner);
-	printf("%ld %d %s\n", time, philo->id, action);
-	pthread_mutex_unlock(&philo->dinner->print);
+    pthread_mutex_lock(&philo->dinner->print);
+    if (philo->dinner->someone_died && ft_strncmp(action, DIE, 4) != 0)
+    {
+        pthread_mutex_unlock(&philo->dinner->print);
+        return;
+    }
+    if (ft_strncmp(action, DIE, 4) == 0)
+        philo->dinner->someone_died = true;
+    time = time_since_start(philo->dinner);
+    printf("%ld %d %s\n", time, philo->id, action);
+    pthread_mutex_unlock(&philo->dinner->print);
 }

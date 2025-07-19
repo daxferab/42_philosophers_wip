@@ -6,7 +6,7 @@
 /*   By: daxferna <daxferna@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 21:17:49 by daxferna          #+#    #+#             */
-/*   Updated: 2025/07/15 14:49:30 by daxferna         ###   ########.fr       */
+/*   Updated: 2025/07/20 01:53:07 by daxferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,15 @@ typedef struct s_fork
 
 typedef struct s_philo
 {
-	int			id;
-	int			meals;
-	bool		full;
-	long		last_meal;
-	t_fork		*right_fork;
-	t_fork		*left_fork;
-	pthread_t	thread_id;
-	t_dinner	*dinner;
+	int				id;
+	int				meals;
+	bool			full;
+	long			last_meal;
+	t_fork			*right_fork;
+	t_fork			*left_fork;
+	pthread_mutex_t	philo_mutex;
+	pthread_t		thread_id;
+	t_dinner		*dinner;
 }	t_philo;
 
 // join_philos.c
@@ -87,6 +88,7 @@ bool	start_dinner(t_dinner *dinner);
 
 void	free_dinner(t_dinner *dinner);
 void	print_action(t_philo *philo, char *action);
+int	ft_strncmp(const char *s1, const char *s2, size_t n);
 int		ft_atoi(char *n);
 bool	ft_isdigit(int c);
 bool	ft_isspace(int c);

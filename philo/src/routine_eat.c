@@ -6,7 +6,7 @@
 /*   By: daxferna <daxferna@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 17:41:46 by daxferna          #+#    #+#             */
-/*   Updated: 2025/07/15 14:26:23 by daxferna         ###   ########.fr       */
+/*   Updated: 2025/07/20 01:48:44 by daxferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,24 @@ static bool	try_eating(t_philo *philo);
 
 void	routine_eat(t_philo *philo)
 {
-	if (!try_eating(philo))
-	{
-		usleep(philo->dinner->time_to_die * 1000);
-		print_action(&philo[0], DIE);
-		free_dinner(philo->dinner);
-		exit (0);
-	}
-	print_action(philo, EAT);
-	philo->meals++;
-	if (philo->meals >= philo->dinner->eating_times
-		&& philo->dinner->eating_times != -1)
-		philo->full = true;
-	philo->last_meal = time_since_start(philo->dinner);
-	usleep(philo->dinner->time_to_eat * 1000);
-	free_forks(philo);
+    if (!try_eating(philo))
+    {
+        usleep(philo->dinner->time_to_die * 1000);
+        print_action(&philo[0], DIE);
+        free_dinner(philo->dinner);
+        exit (0);
+    }
+    print_action(philo, EAT);
+    pthread_mutex_lock(&philo->philo_mutex);
+    philo->meals++;
+    if (philo->meals >= philo->dinner->eating_times
+        && philo->dinner->eating_times != -1)
+        philo->full = true;
+    philo->last_meal = time_since_start(philo->dinner);
+    pthread_mutex_unlock(&philo->philo_mutex);
+    
+    usleep(philo->dinner->time_to_eat * 1000);
+    free_forks(philo);
 }
 
 static bool	try_eating(t_philo *philo)
