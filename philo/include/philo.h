@@ -6,7 +6,7 @@
 /*   By: daxferna <daxferna@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 21:17:49 by daxferna          #+#    #+#             */
-/*   Updated: 2025/07/20 01:53:07 by daxferna         ###   ########.fr       */
+/*   Updated: 2025/07/20 01:56:52 by daxferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,10 @@ typedef struct s_dinner
 	int				eating_times;
 	long			start_time;
 	bool			someone_died;
+	bool			all_full;
 	pthread_t		death;
 	pthread_mutex_t	print;
+	pthread_mutex_t	death_mutex;
 	t_philo			*philos;
 	t_fork			*forks;
 }	t_dinner;
@@ -88,7 +90,7 @@ bool	start_dinner(t_dinner *dinner);
 
 void	free_dinner(t_dinner *dinner);
 void	print_action(t_philo *philo, char *action);
-int	ft_strncmp(const char *s1, const char *s2, size_t n);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		ft_atoi(char *n);
 bool	ft_isdigit(int c);
 bool	ft_isspace(int c);
