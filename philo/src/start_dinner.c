@@ -6,7 +6,7 @@
 /*   By: daxferna <daxferna@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 01:34:28 by daxferna          #+#    #+#             */
-/*   Updated: 2025/07/21 19:50:21 by daxferna         ###   ########.fr       */
+/*   Updated: 2025/07/21 21:23:42 by daxferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ static void	assign_forks(t_dinner *dinner, int i);
 
 bool	start_dinner(t_dinner *dinner)
 {
+	safe_mutex(&dinner->sim_start_mtx, INIT);
 	safe_mutex(&dinner->end_mtx, INIT);
 	safe_mutex(&dinner->satisfied_mtx, INIT);
 	safe_mutex(&dinner->print_mtx, INIT);
 	safe_mutex(&dinner->last_meal_mtx, INIT);
 	if (!init_forks(dinner))
 		return (false);
-	dinner->start_time = time_since_start(NULL);
 	if (!init_philos(dinner))
 		return (false);
 	safe_thread(&dinner->death, CREATE, death_routine, dinner);
@@ -57,16 +57,19 @@ static bool	init_philos(t_dinner *dinner)
 	dinner->philos = malloc(sizeof(t_philo) * dinner->philos_nbr);
 	if (!dinner->philos)
 		return (false);
+	safe_mutex(&dinner->sim_start_mtx, LOCK);
 	while (i < dinner->philos_nbr)
 	{
 		dinner->philos[i].id = i + 1;
 		dinner->philos[i].meals = 0;
 		dinner->philos[i].dinner = dinner;
-		dinner->philos[i].last_meal = time_since_start(dinner);
 		assign_forks(dinner, i);
-		safe_thread(&dinner->philos[i].thread_id, CREATE, philo_routine, &(dinner->philos[i]));
+		safe_thread(&dinner->philos[i].thread_id, CREATE, philo_routine,
+			&(dinner->philos[i]));
 		i++;
 	}
+	dinner->start_time = time_since_start(NULL);
+	safe_mutex(&dinner->sim_start_mtx, UNLOCK);
 	return (true);
 }
 

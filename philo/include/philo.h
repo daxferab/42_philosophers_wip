@@ -6,7 +6,7 @@
 /*   By: daxferna <daxferna@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 21:17:49 by daxferna          #+#    #+#             */
-/*   Updated: 2025/07/21 19:50:21 by daxferna         ###   ########.fr       */
+/*   Updated: 2025/07/21 21:32:03 by daxferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct s_dinner
 	int				time_to_sleep;
 	int				eating_times;
 	long			start_time;
+	pthread_mutex_t	sim_start_mtx;
 	bool			end;
 	pthread_mutex_t	end_mtx;
 	int				satisfied;
@@ -104,9 +105,11 @@ bool	start_dinner(t_dinner *dinner);
 // SAFE_FUNCTIONS
 
 int		safe_mutex(pthread_mutex_t *mtx, t_mtxcode action);
-int		safe_thread(pthread_t *thread, t_thdcode action, void *func, void *param);
+int		safe_thread(pthread_t *thread, t_thdcode action, void *func,
+			void *param);
 void	safe_usleep(t_philo *philo, int sleep);
 bool	sim_continues(t_dinner *dinner);
+void	end_sim(t_dinner *dinner);
 
 // UTILS
 

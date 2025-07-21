@@ -6,7 +6,7 @@
 /*   By: daxferna <daxferna@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 19:50:57 by daxferna          #+#    #+#             */
-/*   Updated: 2025/07/21 20:39:05 by daxferna         ###   ########.fr       */
+/*   Updated: 2025/07/21 21:49:26 by daxferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,11 @@ void	*philo_routine(void *args)
 	t_philo	*philo;
 
 	philo = (t_philo *)args;
+	safe_mutex(&philo->dinner->sim_start_mtx, LOCK);
+	safe_mutex(&philo->dinner->sim_start_mtx, UNLOCK);
+	safe_mutex(&philo->dinner->last_meal_mtx, LOCK);
+	philo->last_meal = time_since_start(philo->dinner);
+	safe_mutex(&philo->dinner->last_meal_mtx, UNLOCK);
 	while (sim_continues(philo->dinner))
 	{
 		routine_think(philo);
@@ -33,14 +38,14 @@ void	*death_routine(void *args)
 	long		starving;
 
 	dinner = (t_dinner *)args;
-	while (1)
+	while (sim_continues(dinner))
 	{
 		i = -1;
 		safe_mutex(&dinner->satisfied_mtx, LOCK);
 		if (dinner->satisfied == dinner->philos_nbr)
 		{
+			end_sim(dinner);
 			safe_mutex(&dinner->satisfied_mtx, UNLOCK);
-			break ;
 		}
 		safe_mutex(&dinner->satisfied_mtx, UNLOCK);
 		safe_mutex(&dinner->last_meal_mtx, LOCK);
@@ -50,10 +55,7 @@ void	*death_routine(void *args)
 			if (starving >= dinner->time_to_die)
 			{
 				print_action(&dinner->philos[i], DIE);
-				safe_mutex(&dinner->end_mtx, LOCK);
-				dinner->end = true;
-				safe_mutex(&dinner->end_mtx, UNLOCK);
-				break ;
+				end_sim(dinner);
 			}
 		}
 		safe_mutex(&dinner->last_meal_mtx, UNLOCK);
