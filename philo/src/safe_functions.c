@@ -6,7 +6,7 @@
 /*   By: daxferna <daxferna@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 18:14:16 by daxferna          #+#    #+#             */
-/*   Updated: 2025/07/21 20:43:17 by daxferna         ###   ########.fr       */
+/*   Updated: 2025/07/21 21:09:16 by daxferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,11 @@ void	safe_usleep(t_philo *philo, int sleep)
 {
 	int	wake_up;
 
-	wake_up = time_since_start(NULL) + sleep;
-	while (time_since_start(NULL) < wake_up)
+	wake_up = time_since_start(philo->dinner) + sleep;
+	while (time_since_start(philo->dinner) < wake_up)
 	{
 		if (!sim_continues(philo->dinner))
-		{
-			printf("Break por la cara\n");
 			break ;
-		}
 		usleep(500);
 	}
 }
