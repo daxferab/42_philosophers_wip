@@ -6,11 +6,20 @@
 /*   By: daxferna <daxferna@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 19:50:57 by daxferna          #+#    #+#             */
-/*   Updated: 2025/07/21 21:49:26 by daxferna         ###   ########.fr       */
+/*   Updated: 2025/07/21 22:11:07 by daxferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	*one_philo(t_philo *philo)
+{
+	safe_mutex(&philo->left_fork->fork_id, LOCK);
+	print_action(philo, FORK);
+	safe_usleep(philo, philo->dinner->time_to_die);
+	safe_mutex(&philo->left_fork->fork_id, UNLOCK);
+	return (NULL);
+}
 
 void	*philo_routine(void *args)
 {
@@ -22,6 +31,8 @@ void	*philo_routine(void *args)
 	safe_mutex(&philo->dinner->last_meal_mtx, LOCK);
 	philo->last_meal = time_since_start(philo->dinner);
 	safe_mutex(&philo->dinner->last_meal_mtx, UNLOCK);
+	if (philo->dinner->philos_nbr == 1)
+		return (one_philo(philo));
 	while (sim_continues(philo->dinner))
 	{
 		routine_think(philo);
@@ -46,6 +57,7 @@ void	*death_routine(void *args)
 		{
 			end_sim(dinner);
 			safe_mutex(&dinner->satisfied_mtx, UNLOCK);
+			break ;
 		}
 		safe_mutex(&dinner->satisfied_mtx, UNLOCK);
 		safe_mutex(&dinner->last_meal_mtx, LOCK);

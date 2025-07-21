@@ -6,7 +6,7 @@
 /*   By: daxferna <daxferna@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 21:04:01 by daxferna          #+#    #+#             */
-/*   Updated: 2025/07/15 14:49:32 by daxferna         ###   ########.fr       */
+/*   Updated: 2025/07/21 21:57:05 by daxferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ int	main(int argc, char *argv[])
 	if (!init_params(argv, dinner))
 		return (free(dinner), 1);
 	if (!start_dinner(dinner))
-		return (free_dinner(dinner), 1);
+		return (free_dinner(dinner, true), 1);
 	join_philos(dinner);
-	free_dinner(dinner);
+	free_dinner(dinner, true);
 	return (0);
 }
