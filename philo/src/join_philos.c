@@ -6,7 +6,7 @@
 /*   By: daxferna <daxferna@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 17:09:36 by daxferna          #+#    #+#             */
-/*   Updated: 2025/07/05 14:04:13 by daxferna         ###   ########.fr       */
+/*   Updated: 2025/07/21 19:03:02 by daxferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,9 @@ bool	join_philos(t_dinner *dinner)
 	i = 0;
 	while (i < dinner->philos_nbr)
 	{
-		if (pthread_join(dinner->philos[i].thread_id, NULL))
-			return (false);
+		safe_thread(&dinner->philos[i].thread_id, JOIN, NULL, NULL);
 		i++;
 	}
-	pthread_join(dinner->death, NULL);
+	safe_thread(&dinner->death, JOIN, NULL, NULL);
 	return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: daxferna <daxferna@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 21:17:49 by daxferna          #+#    #+#             */
-/*   Updated: 2025/07/20 01:56:52 by daxferna         ###   ########.fr       */
+/*   Updated: 2025/07/21 19:50:21 by daxferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,13 @@ typedef struct s_dinner
 	int				time_to_sleep;
 	int				eating_times;
 	long			start_time;
-	bool			someone_died;
-	bool			all_full;
+	bool			end;
+	pthread_mutex_t	end_mtx;
+	int				satisfied;
+	pthread_mutex_t	satisfied_mtx;
+	pthread_mutex_t	print_mtx;
+	pthread_mutex_t	last_meal_mtx;
 	pthread_t		death;
-	pthread_mutex_t	print;
-	pthread_mutex_t	death_mutex;
 	t_philo			*philos;
 	t_fork			*forks;
 }	t_dinner;
@@ -60,14 +62,27 @@ typedef struct s_philo
 {
 	int				id;
 	int				meals;
-	bool			full;
 	long			last_meal;
 	t_fork			*right_fork;
 	t_fork			*left_fork;
-	pthread_mutex_t	philo_mutex;
 	pthread_t		thread_id;
 	t_dinner		*dinner;
 }	t_philo;
+
+typedef enum e_mtxcode
+{
+	INIT,
+	LOCK,
+	UNLOCK,
+	DESTROY
+}	t_mtxcode;
+
+typedef enum e_thdcode
+{
+	CREATE,
+	JOIN,
+	DETACH
+}	t_thdcode;
 
 // join_philos.c
 
@@ -85,6 +100,13 @@ void	*death_routine(void *args);
 
 bool	init_params(char **args, t_dinner *dinner);
 bool	start_dinner(t_dinner *dinner);
+
+// SAFE_FUNCTIONS
+
+int		safe_mutex(pthread_mutex_t *mtx, t_mtxcode action);
+int		safe_thread(pthread_t *thread, t_thdcode action, void *func, void *param);
+void	safe_usleep(t_philo *philo, int sleep);
+bool	sim_continues(t_dinner *dinner);
 
 // UTILS
 

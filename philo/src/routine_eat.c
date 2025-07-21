@@ -6,7 +6,7 @@
 /*   By: daxferna <daxferna@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 17:41:46 by daxferna          #+#    #+#             */
-/*   Updated: 2025/07/20 14:48:13 by daxferna         ###   ########.fr       */
+/*   Updated: 2025/07/21 20:07:15 by daxferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,17 @@ void	routine_eat(t_philo *philo)
 		exit (0);
 	}
 	print_action(philo, EAT);
-	pthread_mutex_lock(&philo->philo_mutex);
-	philo->meals++;
+	if (sim_continues(philo->dinner))
+		philo->meals++;
+	safe_mutex(&philo->dinner->satisfied_mtx, LOCK);
 	if (philo->meals >= philo->dinner->eating_times
 		&& philo->dinner->eating_times != -1)
-		philo->full = true;
+		philo->dinner->satisfied++;
+	safe_mutex(&philo->dinner->satisfied_mtx, UNLOCK);
+	safe_mutex(&philo->dinner->last_meal_mtx, LOCK);
 	philo->last_meal = time_since_start(philo->dinner);
-	pthread_mutex_unlock(&philo->philo_mutex);
-	usleep(philo->dinner->time_to_eat * 1000);
+	safe_mutex(&philo->dinner->last_meal_mtx, UNLOCK);
+	safe_usleep(philo, philo->dinner->time_to_eat);
 	free_forks(philo);
 }
 
@@ -41,12 +44,12 @@ static bool	try_eating(t_philo *philo)
 	bool	eating;
 
 	eating = false;
+	if (philo->left_fork->id == philo->right_fork->id)
+		return (false);
 	while (!eating)
 	{
-		if (philo->left_fork->id == philo->right_fork->id)
-			return (false);
-		pthread_mutex_lock(&philo->left_fork->fork_id);
-		pthread_mutex_lock(&philo->right_fork->fork_id);
+		safe_mutex(&philo->left_fork->fork_id, LOCK);
+		safe_mutex(&philo->right_fork->fork_id, LOCK);
 		if (!philo->left_fork->in_use && !philo->right_fork->in_use)
 		{
 			philo->left_fork->in_use = true;
@@ -55,18 +58,18 @@ static bool	try_eating(t_philo *philo)
 			print_action(philo, FORK);
 			eating = true;
 		}
-		pthread_mutex_unlock(&philo->left_fork->fork_id);
-		pthread_mutex_unlock(&philo->right_fork->fork_id);
+		safe_mutex(&philo->left_fork->fork_id, UNLOCK);
+		safe_mutex(&philo->right_fork->fork_id, UNLOCK);
 	}
 	return (true);
 }
 
 static void	free_forks(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->left_fork->fork_id);
-	pthread_mutex_lock(&philo->right_fork->fork_id);
+	safe_mutex(&philo->left_fork->fork_id, LOCK);
+	safe_mutex(&philo->right_fork->fork_id, LOCK);
 	philo->left_fork->in_use = false;
 	philo->right_fork->in_use = false;
-	pthread_mutex_unlock(&philo->left_fork->fork_id);
-	pthread_mutex_unlock(&philo->right_fork->fork_id);
+	safe_mutex(&philo->left_fork->fork_id, UNLOCK);
+	safe_mutex(&philo->right_fork->fork_id, UNLOCK);
 }

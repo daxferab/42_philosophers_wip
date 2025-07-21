@@ -6,7 +6,7 @@
 /*   By: daxferna <daxferna@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 04:00:29 by daxferna          #+#    #+#             */
-/*   Updated: 2025/07/20 14:47:38 by daxferna         ###   ########.fr       */
+/*   Updated: 2025/07/21 20:36:43 by daxferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,16 @@
 void	print_action(t_philo *philo, char *action)
 {
 	long	time;
-
-	pthread_mutex_lock(&philo->dinner->print);
-	pthread_mutex_lock(&philo->dinner->death_mutex);
-	if (philo->dinner->someone_died && ft_strncmp(action, DIE, 4) != 0)
+	time = time_since_start(philo->dinner);
+	safe_mutex(&philo->dinner->print_mtx, LOCK);
+	if (!sim_continues(philo->dinner))
 	{
-		pthread_mutex_unlock(&philo->dinner->death_mutex);
-		pthread_mutex_unlock(&philo->dinner->print);
+		safe_mutex(&philo->dinner->print_mtx, UNLOCK);
 		return ;
 	}
-	pthread_mutex_unlock(&philo->dinner->death_mutex);
-	time = time_since_start(philo->dinner);
 	printf("%ld %d %s\n", time, philo->id, action);
-	if (ft_strncmp(action, DIE, 4) == 0)
+	if (ft_strncmp(action, DIE, 4) != 0)
 	{
-		pthread_mutex_lock(&philo->dinner->death_mutex);
-		philo->dinner->someone_died = true;
-		pthread_mutex_unlock(&philo->dinner->death_mutex);
+		safe_mutex(&philo->dinner->print_mtx, UNLOCK);
 	}
-	pthread_mutex_unlock(&philo->dinner->print);
 }

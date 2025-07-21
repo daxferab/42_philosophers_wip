@@ -1,7 +1,7 @@
 NAME    = philo
 
 CC      = cc
-CFLAGS  = -Wall -Werror -Wextra -pthread -g3 #-fsanitize=thread
+CFLAGS  = -Wall -Werror -Wextra -pthread -g3 -fsanitize=thread
 INCLUDE = -Iinclude/
 
 OBJ_DIR     = obj
@@ -18,6 +18,7 @@ SRC_FILES   = 	\
 				routine_sleep.c\
 				routine_think.c\
 				routines.c\
+				safe_functions.c\
 				start_dinner.c\
 				utils.c\
 

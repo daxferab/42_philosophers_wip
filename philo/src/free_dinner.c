@@ -6,26 +6,18 @@
 /*   By: daxferna <daxferna@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 20:13:10 by daxferna          #+#    #+#             */
-/*   Updated: 2025/07/20 14:48:46 by daxferna         ###   ########.fr       */
+/*   Updated: 2025/07/21 18:10:51 by daxferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+//TODO: Mutex destroy
 void	free_dinner(t_dinner *dinner)
 {
-	int		i;
-
-	i = 0;
-	while (i < dinner->philos_nbr)
-	{
-		pthread_mutex_destroy(&dinner->philos[i].philo_mutex);
-		pthread_mutex_destroy(&dinner->forks[i].fork_id);
-		i++;
-	}
-	pthread_mutex_destroy(&dinner->print);
-	pthread_mutex_destroy(&dinner->death_mutex);
-	free(dinner->philos);
-	free(dinner->forks);
+	if (dinner->philos)
+		free(dinner->philos);
+	if (dinner->forks)
+		free(dinner->forks);
 	free(dinner);
 }

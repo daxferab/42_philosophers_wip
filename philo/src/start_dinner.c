@@ -6,7 +6,7 @@
 /*   By: daxferna <daxferna@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 01:34:28 by daxferna          #+#    #+#             */
-/*   Updated: 2025/07/20 14:41:21 by daxferna         ###   ########.fr       */
+/*   Updated: 2025/07/21 19:50:21 by daxferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,16 @@ static void	assign_forks(t_dinner *dinner, int i);
 
 bool	start_dinner(t_dinner *dinner)
 {
-	if (pthread_mutex_init(&dinner->print, NULL))
-		return (false);
+	safe_mutex(&dinner->end_mtx, INIT);
+	safe_mutex(&dinner->satisfied_mtx, INIT);
+	safe_mutex(&dinner->print_mtx, INIT);
+	safe_mutex(&dinner->last_meal_mtx, INIT);
 	if (!init_forks(dinner))
 		return (false);
 	dinner->start_time = time_since_start(NULL);
 	if (!init_philos(dinner))
 		return (false);
-	if (pthread_create(&dinner->death, NULL, death_routine, dinner))
-		return (false);
+	safe_thread(&dinner->death, CREATE, death_routine, dinner);
 	return (true);
 }
 
@@ -36,12 +37,13 @@ static bool	init_forks(t_dinner *dinner)
 
 	i = 0;
 	dinner->forks = malloc(sizeof(t_fork) * dinner->philos_nbr);
+	if (!dinner->forks)
+		return (false);
 	while (i < dinner->philos_nbr)
 	{
 		dinner->forks[i].id = i;
 		dinner->forks[i].in_use = false;
-		if (pthread_mutex_init(&dinner->forks[i].fork_id, NULL))
-			return (false);
+		safe_mutex(&dinner->forks[i].fork_id, INIT);
 		i++;
 	}
 	return (true);
@@ -53,19 +55,16 @@ static bool	init_philos(t_dinner *dinner)
 
 	i = 0;
 	dinner->philos = malloc(sizeof(t_philo) * dinner->philos_nbr);
+	if (!dinner->philos)
+		return (false);
 	while (i < dinner->philos_nbr)
 	{
 		dinner->philos[i].id = i + 1;
 		dinner->philos[i].meals = 0;
-		dinner->philos[i].full = false;
-		dinner->philos[i].last_meal = dinner->start_time;
 		dinner->philos[i].dinner = dinner;
-		if (pthread_mutex_init(&dinner->philos[i].philo_mutex, NULL))
-			return (false);
+		dinner->philos[i].last_meal = time_since_start(dinner);
 		assign_forks(dinner, i);
-		if (pthread_create(&dinner->philos[i].thread_id, NULL, philo_routine,
-				&(dinner->philos[i])))
-			return (false);
+		safe_thread(&dinner->philos[i].thread_id, CREATE, philo_routine, &(dinner->philos[i]));
 		i++;
 	}
 	return (true);
@@ -76,7 +75,7 @@ static void	assign_forks(t_dinner *dinner, int i)
 	int	n_philos;
 
 	n_philos = dinner->philos_nbr;
-	if (i < dinner->philos_nbr - 1)
+	if (i < n_philos - 1)
 	{
 		dinner->philos[i].left_fork = &(dinner->forks[i]);
 		dinner->philos[i].right_fork = &(dinner->forks[(i + 1) % n_philos]);

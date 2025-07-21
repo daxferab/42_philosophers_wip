@@ -6,7 +6,7 @@
 /*   By: daxferna <daxferna@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 14:46:21 by daxferna          #+#    #+#             */
-/*   Updated: 2025/07/20 14:44:14 by daxferna         ###   ########.fr       */
+/*   Updated: 2025/07/21 19:09:35 by daxferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,7 @@ bool	init_params(char **args, t_dinner *dinner)
 		|| dinner->time_to_sleep < 1
 		|| (args[5] && dinner->eating_times < 1))
 		return (printf("All arguments must be a positive int\n"), false);
-	dinner->someone_died = false;
-	dinner->all_full = false;
-	if (pthread_mutex_init(&dinner->death_mutex, NULL))
-		return (false);
+	dinner->satisfied = 0;
+	dinner->end = false;
 	return (true);
 }
