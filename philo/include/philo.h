@@ -6,7 +6,7 @@
 /*   By: daxferna <daxferna@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 21:17:49 by daxferna          #+#    #+#             */
-/*   Updated: 2025/07/22 21:31:31 by daxferna         ###   ########.fr       */
+/*   Updated: 2025/07/22 21:33:02 by daxferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,9 @@ bool	start_dinner(t_dinner *dinner);
 // ROUTINES
 
 void	*death_routine(void *args);
+
 void	*philo_routine(void	*args);
+
 void	routine_eat(t_philo *philo);
 void	routine_sleep(t_philo *philo);
 void	routine_think(t_philo *philo);
