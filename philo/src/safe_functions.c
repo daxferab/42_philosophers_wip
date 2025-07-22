@@ -6,7 +6,7 @@
 /*   By: daxferna <daxferna@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 18:14:16 by daxferna          #+#    #+#             */
-/*   Updated: 2025/07/21 21:31:54 by daxferna         ###   ########.fr       */
+/*   Updated: 2025/07/22 01:58:13 by daxferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,4 @@ void	end_sim(t_dinner *dinner)
 	safe_mutex(&dinner->end_mtx, LOCK);
 	dinner->end = true;
 	safe_mutex(&dinner->end_mtx, UNLOCK);
-
 }

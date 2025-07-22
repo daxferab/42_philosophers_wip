@@ -6,11 +6,13 @@
 /*   By: daxferna <daxferna@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 19:50:57 by daxferna          #+#    #+#             */
-/*   Updated: 2025/07/21 22:11:07 by daxferna         ###   ########.fr       */
+/*   Updated: 2025/07/22 02:02:17 by daxferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+static void	check_starving(t_dinner *dinner);
 
 void	*one_philo(t_philo *philo)
 {
@@ -45,13 +47,10 @@ void	*philo_routine(void *args)
 void	*death_routine(void *args)
 {
 	t_dinner	*dinner;
-	int			i;
-	long		starving;
 
 	dinner = (t_dinner *)args;
 	while (sim_continues(dinner))
 	{
-		i = -1;
 		safe_mutex(&dinner->satisfied_mtx, LOCK);
 		if (dinner->satisfied == dinner->philos_nbr)
 		{
@@ -61,17 +60,27 @@ void	*death_routine(void *args)
 		}
 		safe_mutex(&dinner->satisfied_mtx, UNLOCK);
 		safe_mutex(&dinner->last_meal_mtx, LOCK);
-		while (++i < dinner->philos_nbr)
-		{
-			starving = (time_since_start(dinner) - dinner->philos[i].last_meal);
-			if (starving >= dinner->time_to_die)
-			{
-				print_action(&dinner->philos[i], DIE);
-				end_sim(dinner);
-			}
-		}
+		check_starving(dinner);
 		safe_mutex(&dinner->last_meal_mtx, UNLOCK);
 		usleep(1000);
 	}
 	return (NULL);
+}
+
+static void	check_starving(t_dinner *dinner)
+{
+	int		i;
+	long	starving;
+
+	i = 0;
+	while (i < dinner->philos_nbr)
+	{
+		starving = (time_since_start(dinner) - dinner->philos[i].last_meal);
+		if (starving >= dinner->time_to_die)
+		{
+			print_action(&dinner->philos[i], DIE);
+			end_sim(dinner);
+		}
+		i++;
+	}
 }
