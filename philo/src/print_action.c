@@ -6,13 +6,13 @@
 /*   By: daxferna <daxferna@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 04:00:29 by daxferna          #+#    #+#             */
-/*   Updated: 2025/07/22 02:25:39 by daxferna         ###   ########.fr       */
+/*   Updated: 2025/07/22 02:26:51 by daxferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static void	print_format();
+static void	print_format(long time, int	id, char *action);
 
 void	print_action(t_philo *philo, char *action)
 {
