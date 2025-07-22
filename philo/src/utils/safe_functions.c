@@ -6,7 +6,7 @@
 /*   By: daxferna <daxferna@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 18:14:16 by daxferna          #+#    #+#             */
-/*   Updated: 2025/07/22 01:58:13 by daxferna         ###   ########.fr       */
+/*   Updated: 2025/07/22 21:31:01 by daxferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,17 @@ int	safe_mutex(pthread_mutex_t *mtx, t_mtxcode action)
 	return (errno);
 }
 
-int	safe_thread(pthread_t *thread, t_thdcode action, void *func, void *param)
+int	safe_thread(pthread_t *thrd, t_thdcode action, void *func, void *param)
 {
 	int	errno;
 
 	errno = 0;
 	if (action == CREATE)
-		errno = pthread_create(thread, NULL, func, param);
+		errno = pthread_create(thrd, NULL, func, param);
 	else if (action == JOIN)
-		errno = pthread_join(*thread, NULL);
+		errno = pthread_join(*thrd, NULL);
 	else if (action == DETACH)
-		errno = pthread_detach(*thread);
+		errno = pthread_detach(*thrd);
 	if (errno != 0)
 		exit (0);
 	return (errno);
@@ -57,23 +57,4 @@ void	safe_usleep(t_philo *philo, int sleep)
 			break ;
 		usleep(500);
 	}
-}
-
-//TODO: Move function
-
-bool	sim_continues(t_dinner *dinner)
-{
-	bool	ret_value;
-
-	safe_mutex(&dinner->end_mtx, LOCK);
-	ret_value = dinner->end;
-	safe_mutex(&dinner->end_mtx, UNLOCK);
-	return (!ret_value);
-}
-
-void	end_sim(t_dinner *dinner)
-{
-	safe_mutex(&dinner->end_mtx, LOCK);
-	dinner->end = true;
-	safe_mutex(&dinner->end_mtx, UNLOCK);
 }

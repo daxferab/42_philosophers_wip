@@ -6,7 +6,7 @@
 /*   By: daxferna <daxferna@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 21:17:49 by daxferna          #+#    #+#             */
-/*   Updated: 2025/07/21 21:56:37 by daxferna         ###   ########.fr       */
+/*   Updated: 2025/07/22 21:31:31 by daxferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,40 +85,39 @@ typedef enum e_thdcode
 	DETACH
 }	t_thdcode;
 
-// join_philos.c
+// DINNER
 
+bool	init_params(char **args, t_dinner *dinner);
 bool	join_philos(t_dinner *dinner);
+bool	start_dinner(t_dinner *dinner);
+
 
 // ROUTINES
 
+void	*death_routine(void *args);
+void	*philo_routine(void	*args);
 void	routine_eat(t_philo *philo);
 void	routine_sleep(t_philo *philo);
 void	routine_think(t_philo *philo);
-void	*philo_routine(void	*args);
-void	*death_routine(void *args);
-
-// start_dinner.c
-
-bool	init_params(char **args, t_dinner *dinner);
-bool	start_dinner(t_dinner *dinner);
-
-// SAFE_FUNCTIONS
-
-int		safe_mutex(pthread_mutex_t *mtx, t_mtxcode action);
-int		safe_thread(pthread_t *thread, t_thdcode action, void *func,
-			void *param);
-void	safe_usleep(t_philo *philo, int sleep);
-bool	sim_continues(t_dinner *dinner);
-void	end_sim(t_dinner *dinner);
 
 // UTILS
 
+bool	sim_continues(t_dinner *dinner);
+void	end_sim(t_dinner *dinner);
+
 void	free_dinner(t_dinner *dinner, bool destroy);
-void	print_action(t_philo *philo, char *action);
+
+long	time_since_start(t_dinner *dinner);
+
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		ft_atoi(char *n);
 bool	ft_isdigit(int c);
 bool	ft_isspace(int c);
-long	time_since_start(t_dinner *dinner);
+
+void	print_action(t_philo *philo, char *action);
+
+int		safe_mutex(pthread_mutex_t *mtx, t_mtxcode action);
+int		safe_thread(pthread_t *thrd, t_thdcode action, void *func, void *param);
+void	safe_usleep(t_philo *philo, int sleep);
 
 #endif
