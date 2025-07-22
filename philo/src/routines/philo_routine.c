@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   routine_philo.c                                    :+:      :+:    :+:   */
+/*   philo_routine.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: daxferna <daxferna@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 20:26:59 by daxferna          #+#    #+#             */
-/*   Updated: 2025/07/22 21:08:17 by daxferna         ###   ########.fr       */
+/*   Updated: 2025/07/22 21:45:14 by daxferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	*philo_routine(void *args)
 	safe_mutex(&philo->dinner->sim_start_mtx, LOCK);
 	safe_mutex(&philo->dinner->sim_start_mtx, UNLOCK);
 	safe_mutex(&philo->dinner->last_meal_mtx, LOCK);
-	philo->last_meal = philo->dinner->start_time;
+	philo->last_meal = 0;
 	safe_mutex(&philo->dinner->last_meal_mtx, UNLOCK);
 	if (philo->dinner->philos_nbr == 1)
 		return (one_philo(philo));

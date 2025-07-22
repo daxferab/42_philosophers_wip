@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   routines.c                                         :+:      :+:    :+:   */
+/*   death_routine.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: daxferna <daxferna@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 19:50:57 by daxferna          #+#    #+#             */
-/*   Updated: 2025/07/22 20:33:27 by daxferna         ###   ########.fr       */
+/*   Updated: 2025/07/22 21:40:46 by daxferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,7 @@ void	*death_routine(void *args)
 			break ;
 		}
 		safe_mutex(&dinner->satisfied_mtx, UNLOCK);
-		safe_mutex(&dinner->last_meal_mtx, LOCK);
 		check_starving(dinner);
-		safe_mutex(&dinner->last_meal_mtx, UNLOCK);
 		usleep(1000);
 	}
 	return (NULL);
@@ -45,7 +43,9 @@ static void	check_starving(t_dinner *dinner)
 	i = 0;
 	while (i < dinner->philos_nbr)
 	{
+		safe_mutex(&dinner->last_meal_mtx, LOCK);
 		starving = (time_since_start(dinner) - dinner->philos[i].last_meal);
+		safe_mutex(&dinner->last_meal_mtx, UNLOCK);
 		if (starving >= dinner->time_to_die)
 		{
 			print_action(&dinner->philos[i], DIE);
