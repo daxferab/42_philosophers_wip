@@ -6,7 +6,7 @@
 /*   By: daxferna <daxferna@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 17:41:46 by daxferna          #+#    #+#             */
-/*   Updated: 2025/07/23 02:41:11 by daxferna         ###   ########.fr       */
+/*   Updated: 2025/07/23 02:45:25 by daxferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,10 @@ static void	try_eating(t_philo *philo)
 	{
 		safe_mutex(&philo->left_fork->fork_id, LOCK);
 		safe_mutex(&philo->right_fork->fork_id, LOCK);
-		if (!philo->left_fork->in_use && !philo->right_fork->in_use && 
-			philo->left_fork->used_by != philo->id && 
-			philo->right_fork->used_by != philo->id)
+		if (!philo->left_fork->in_use
+			&& !philo->right_fork->in_use
+			&& philo->left_fork->used_by != philo->id
+			&& philo->right_fork->used_by != philo->id)
 		{
 			philo->left_fork->in_use = true;
 			philo->right_fork->in_use = true;

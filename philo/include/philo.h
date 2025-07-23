@@ -6,7 +6,7 @@
 /*   By: daxferna <daxferna@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 21:17:49 by daxferna          #+#    #+#             */
-/*   Updated: 2025/07/23 02:40:12 by daxferna         ###   ########.fr       */
+/*   Updated: 2025/07/23 02:44:44 by daxferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ typedef enum e_thdcode
 bool	init_params(char **args, t_dinner *dinner);
 bool	join_philos(t_dinner *dinner);
 bool	start_dinner(t_dinner *dinner);
-
 
 // ROUTINES
 
