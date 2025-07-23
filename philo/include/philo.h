@@ -6,7 +6,7 @@
 /*   By: daxferna <daxferna@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 21:17:49 by daxferna          #+#    #+#             */
-/*   Updated: 2025/07/22 21:33:02 by daxferna         ###   ########.fr       */
+/*   Updated: 2025/07/23 02:40:12 by daxferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct s_fork
 {
 	int				id;
 	bool			in_use;
+	int				used_by;
 	pthread_mutex_t	fork_id;
 }	t_fork;
 
