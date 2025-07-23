@@ -6,7 +6,7 @@
 /*   By: daxferna <daxferna@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 21:04:01 by daxferna          #+#    #+#             */
-/*   Updated: 2025/07/23 02:43:23 by daxferna         ###   ########.fr       */
+/*   Updated: 2025/07/23 03:03:47 by daxferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,3 @@ int	main(int argc, char *argv[])
 	free_dinner(dinner, true);
 	return (0);
 }
-
-//TODO: 1 philo doesnt die (uninit something)

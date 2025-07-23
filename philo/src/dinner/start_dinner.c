@@ -6,7 +6,7 @@
 /*   By: daxferna <daxferna@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 01:34:28 by daxferna          #+#    #+#             */
-/*   Updated: 2025/07/22 22:22:53 by daxferna         ###   ########.fr       */
+/*   Updated: 2025/07/23 03:02:50 by daxferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static bool	init_philos(t_dinner *dinner)
 		dinner->philos[i].meals = 0;
 		dinner->philos[i].dinner = dinner;
 		safe_mutex(&dinner->last_meal_mtx, LOCK);
-		dinner->philos[i].last_meal = dinner->start_time;
+		dinner->philos[i].last_meal = time_since_start(dinner);
 		safe_mutex(&dinner->last_meal_mtx, UNLOCK);
 		assign_forks(dinner, i);
 		safe_thread(&dinner->philos[i].thread_id, CREATE, philo_routine,
