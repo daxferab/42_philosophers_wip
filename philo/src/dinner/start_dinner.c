@@ -6,7 +6,7 @@
 /*   By: daxferna <daxferna@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 01:34:28 by daxferna          #+#    #+#             */
-/*   Updated: 2025/07/23 03:02:50 by daxferna         ###   ########.fr       */
+/*   Updated: 2025/07/23 17:52:18 by daxferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,14 @@ static bool	init_philos(t_dinner *dinner)
 	if (!dinner->philos)
 		return (false);
 	safe_mutex(&dinner->sim_start_mtx, LOCK);
-	dinner->start_time = time_since_start(NULL);
+	dinner->start_time = get_time(NULL);
 	while (i < dinner->philos_nbr)
 	{
 		dinner->philos[i].id = i + 1;
 		dinner->philos[i].meals = 0;
 		dinner->philos[i].dinner = dinner;
 		safe_mutex(&dinner->last_meal_mtx, LOCK);
-		dinner->philos[i].last_meal = time_since_start(dinner);
+		dinner->philos[i].last_meal = get_time(dinner);
 		safe_mutex(&dinner->last_meal_mtx, UNLOCK);
 		assign_forks(dinner, i);
 		safe_thread(&dinner->philos[i].thread_id, CREATE, philo_routine,

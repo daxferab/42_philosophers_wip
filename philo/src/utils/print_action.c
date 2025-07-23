@@ -6,7 +6,7 @@
 /*   By: daxferna <daxferna@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 04:00:29 by daxferna          #+#    #+#             */
-/*   Updated: 2025/07/22 20:25:50 by daxferna         ###   ########.fr       */
+/*   Updated: 2025/07/23 17:52:14 by daxferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	print_action(t_philo *philo, char *action)
 	long	time;
 
 	safe_mutex(&philo->dinner->print_mtx, LOCK);
-	time = time_since_start(philo->dinner);
+	time = get_time(philo->dinner);
 	if (!sim_continues(philo->dinner))
 	{
 		safe_mutex(&philo->dinner->print_mtx, UNLOCK);

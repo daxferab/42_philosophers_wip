@@ -6,7 +6,7 @@
 /*   By: daxferna <daxferna@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 19:50:57 by daxferna          #+#    #+#             */
-/*   Updated: 2025/07/23 03:02:05 by daxferna         ###   ########.fr       */
+/*   Updated: 2025/07/23 17:34:30 by daxferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	check_starving(t_dinner *dinner)
 	while (i < dinner->philos_nbr)
 	{
 		safe_mutex(&dinner->last_meal_mtx, LOCK);
-		starving = time_since_start(dinner) - dinner->philos[i].last_meal;
+		starving = get_time(dinner) - dinner->philos[i].last_meal;
 		safe_mutex(&dinner->last_meal_mtx, UNLOCK);
 		if (starving >= dinner->time_to_die)
 		{

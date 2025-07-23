@@ -6,7 +6,7 @@
 /*   By: daxferna <daxferna@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 21:17:49 by daxferna          #+#    #+#             */
-/*   Updated: 2025/07/23 02:44:44 by daxferna         ###   ########.fr       */
+/*   Updated: 2025/07/23 17:34:30 by daxferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void	end_sim(t_dinner *dinner);
 
 void	free_dinner(t_dinner *dinner, bool destroy);
 
-long	time_since_start(t_dinner *dinner);
+long	get_time(t_dinner *dinner);
 
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		ft_atoi(char *n);

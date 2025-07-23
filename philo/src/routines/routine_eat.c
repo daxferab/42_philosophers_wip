@@ -6,7 +6,7 @@
 /*   By: daxferna <daxferna@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 17:41:46 by daxferna          #+#    #+#             */
-/*   Updated: 2025/07/23 02:45:25 by daxferna         ###   ########.fr       */
+/*   Updated: 2025/07/23 17:34:30 by daxferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	routine_eat(t_philo *philo)
 		philo->dinner->satisfied++;
 	safe_mutex(&philo->dinner->satisfied_mtx, UNLOCK);
 	safe_mutex(&philo->dinner->last_meal_mtx, LOCK);
-	philo->last_meal = time_since_start(philo->dinner);
+	philo->last_meal = get_time(philo->dinner);
 	safe_mutex(&philo->dinner->last_meal_mtx, UNLOCK);
 	safe_usleep(philo, philo->dinner->time_to_eat);
 	free_forks(philo);

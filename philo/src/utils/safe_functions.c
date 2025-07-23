@@ -6,7 +6,7 @@
 /*   By: daxferna <daxferna@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 18:14:16 by daxferna          #+#    #+#             */
-/*   Updated: 2025/07/22 21:31:01 by daxferna         ###   ########.fr       */
+/*   Updated: 2025/07/23 17:34:30 by daxferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ void	safe_usleep(t_philo *philo, int sleep)
 {
 	int	wake_up;
 
-	wake_up = time_since_start(philo->dinner) + sleep;
-	while (time_since_start(philo->dinner) < wake_up)
+	wake_up = get_time(philo->dinner) + sleep;
+	while (get_time(philo->dinner) < wake_up)
 	{
 		if (!sim_continues(philo->dinner))
 			break ;
